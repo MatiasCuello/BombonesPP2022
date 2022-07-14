@@ -45,6 +45,7 @@
     <Compile Include="ConexionBD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorios\RepositorioFabricas.cs" />
+    <Compile Include="Repositorios\RepositorioPaises.cs" />
     <Compile Include="Repositorios\RepositorioTiposDeRellenos.cs" />
   </ItemGroup>
   <ItemGroup />

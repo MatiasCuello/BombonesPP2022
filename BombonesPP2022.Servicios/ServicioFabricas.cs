@@ -41,5 +41,18 @@ namespace BombonesPP2022.Servicios
                 throw new Exception(e.Message);
             }
         }
+
+        public int Borrar(Fabrica fabrica)
+        {
+            try
+            {
+                return repositorio.Borrar(fabrica);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }

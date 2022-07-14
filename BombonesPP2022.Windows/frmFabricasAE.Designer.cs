@@ -29,6 +29,7 @@ namespace BombonesPP2022.Windows
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.PaisesComboBox = new System.Windows.Forms.ComboBox();
             this.CancelarIconButton = new FontAwesome.Sharp.IconButton();
             this.OKIconButton = new FontAwesome.Sharp.IconButton();
@@ -39,6 +40,8 @@ namespace BombonesPP2022.Windows
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.GerenteTextBox = new System.Windows.Forms.TextBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // PaisesComboBox
@@ -64,6 +67,7 @@ namespace BombonesPP2022.Windows
             this.CancelarIconButton.Text = "Cancelar";
             this.CancelarIconButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.CancelarIconButton.UseVisualStyleBackColor = false;
+            this.CancelarIconButton.Click += new System.EventHandler(this.CancelarIconButton_Click);
             // 
             // OKIconButton
             // 
@@ -141,6 +145,10 @@ namespace BombonesPP2022.Windows
             this.GerenteTextBox.Size = new System.Drawing.Size(472, 20);
             this.GerenteTextBox.TabIndex = 24;
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // frmFabricasAE
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -158,6 +166,8 @@ namespace BombonesPP2022.Windows
             this.Controls.Add(this.label2);
             this.Name = "frmFabricasAE";
             this.Text = "frmFabricas";
+            this.Load += new System.EventHandler(this.frmFabricasAE_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -174,5 +184,6 @@ namespace BombonesPP2022.Windows
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox GerenteTextBox;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

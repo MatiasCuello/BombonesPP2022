@@ -55,13 +55,12 @@ namespace BombonesPP2022.Datos.Repositorios
                 int registrosAfectados = 0;
                 using (var cn = conexion.AbrirConexion())
                 {
-                    var cadenaComando =
-                        "INSERT INTO Fabricas (NombreFabrica, Direccion, PaisId, GerenteDeVentas) VALUES(@nom, @dir, @paisId, @ger)";
-                    var comando = new SqlCommand(cadenaComando, cn);
+                    string cadenaComando = "INSERT INTO Fabricas (NombreFabrica, Direccion, GerenteDeVentas, PaisId) VALUES (@nom, @dir, @gerente,@paisId)";
+                    SqlCommand comando = new SqlCommand(cadenaComando, cn);
                     comando.Parameters.AddWithValue("@nom", fabrica.NombreFabrica);
                     comando.Parameters.AddWithValue("@dir", fabrica.Direccion);
+                    comando.Parameters.AddWithValue("@gerente", fabrica.GerenteVentas);
                     comando.Parameters.AddWithValue("@paisId", fabrica.PaisId);
-                    comando.Parameters.AddWithValue("@ger", fabrica.GerenteVentas);
                     registrosAfectados = comando.ExecuteNonQuery();
                     if (registrosAfectados == 0)
                     {
@@ -89,7 +88,32 @@ namespace BombonesPP2022.Datos.Repositorios
             }
 
         }
-        
+        public int Borrar(Fabrica fabrica)
+        {
+            int registrosAfectados = 0;
+            try
+            {
+                using (var cn = conexion.AbrirConexion())
+                {
+                    var cadenaComando = "DELETE FROM Fabricas WHERE FabricaId=@id AND RowVersion=@r";
+                    var comando = new SqlCommand(cadenaComando, cn);
+                    comando.Parameters.AddWithValue("@id", fabrica.FabricaId);
+                    comando.Parameters.AddWithValue("@r", fabrica.RowVersion);
+                    registrosAfectados = comando.ExecuteNonQuery();
+                }
+
+                return registrosAfectados;
+            }
+            catch (Exception e)
+            {
+                if (e.Message.Contains("REFERENCE"))
+                {
+                    throw new Exception("Fabrica relacionada... baja denegada");
+                }
+                throw new Exception(e.Message);
+            }
+        }
+
 
         private Fabrica ConstruirFabrica(SqlDataReader reader)
         {

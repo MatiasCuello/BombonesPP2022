@@ -64,7 +64,7 @@ namespace BombonesPP2022.Windows
                 var r = HelperGrilla.ConstruirFila(DatosDataGridView);
                 HelperGrilla.SetearFila(r, fabrica);
                 HelperGrilla.AgregarFila(DatosDataGridView, r);
-                HelperMensaje.Mensaje(TipoMensaje.Information, "Fabrica gregada", "Mensaje");
+                HelperMensaje.Mensaje(TipoMensaje.Information, "Fabrica agregada", "Mensaje");
 
 
             }
@@ -73,6 +73,43 @@ namespace BombonesPP2022.Windows
                 HelperMensaje.Mensaje(TipoMensaje.Error, exception.Message, "Error");
             }
         }
+
+        private void BorrarIconButton_Click(object sender, EventArgs e)
+        {
+            if (DatosDataGridView.SelectedRows.Count == 0)
+            {
+                return;
+            }
+
+            try
+            {
+                int registrosAfectados = 0;
+                var r = DatosDataGridView.SelectedRows[0];
+                Fabrica fabrica = (Fabrica)r.Tag;
+                DialogResult dr = HelperMensaje.Mensaje("¿Desea eliminar la fabrica seleccionada?", "Confirmar eliminacion");
+                if (dr == DialogResult.No)
+                {
+                    return;
+                }
+                registrosAfectados = servicio.Borrar(fabrica);
+                if (registrosAfectados == 0)
+                {
+
+                    HelperMensaje.Mensaje(TipoMensaje.Warning, "No se pudo eliminar la fabrica", "Mensaje");
+
+                }
+                DatosDataGridView.Rows.Remove(r);
+                HelperMensaje.Mensaje(TipoMensaje.OK, "Fabrica eliminada", "Mensaje");
+
+
+            }
+            catch (Exception exception)
+            {
+                HelperMensaje.Mensaje(TipoMensaje.Error, exception.Message, "Error");
+            }
+
+        }
     }
 }
+
 

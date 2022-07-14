@@ -171,6 +171,7 @@ namespace BombonesPP2022.Windows
             this.BorrarIconButton.Text = "Borrar";
             this.BorrarIconButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.BorrarIconButton.UseVisualStyleBackColor = true;
+            this.BorrarIconButton.Click += new System.EventHandler(this.BorrarIconButton_Click);
             // 
             // NuevoIconButton
             // 
