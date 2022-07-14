@@ -16,5 +16,10 @@ namespace BombonesPP2022.Windows
         {
             InitializeComponent();
         }
+
+        private void EditarIconButton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

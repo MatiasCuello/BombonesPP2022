@@ -114,6 +114,7 @@ namespace BombonesPP2022.Windows
             this.EditarIconButton.Text = "Editar";
             this.EditarIconButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.EditarIconButton.UseVisualStyleBackColor = true;
+            this.EditarIconButton.Click += new System.EventHandler(this.EditarIconButton_Click);
             // 
             // BorrarIconButton
             // 

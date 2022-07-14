@@ -47,6 +47,43 @@ namespace BombonesPP2022.Datos.Repositorios
             }
         }
 
+        public int Editar(Fabrica fabrica)
+        {
+            int registrosAfectados = 0;
+            try
+            {
+                using (var cn = conexion.AbrirConexion())
+                {
+                    var cadenaComando = "UPDATE Fabricas SET NombreFabrica=@nom, Direccion=@dir, GerenteDeVentas=@ger, PaisId=@paisId WHERE FabricaId=@id AND RowVersion=@r";
+                    var comando = new SqlCommand(cadenaComando, cn);
+                    comando.Parameters.AddWithValue("@nom", fabrica.NombreFabrica);
+                    comando.Parameters.AddWithValue("@dir", fabrica.Direccion);
+                    comando.Parameters.AddWithValue("@ger", fabrica.GerenteVentas);
+                    comando.Parameters.AddWithValue("@paisId", fabrica.PaisId);
+                    comando.Parameters.AddWithValue("@id", fabrica.FabricaId);
+                    comando.Parameters.AddWithValue("@r", fabrica.RowVersion);
+                    registrosAfectados = comando.ExecuteNonQuery();
+                    if (registrosAfectados > 0)
+                    {
+                        cadenaComando = "SELECT RowVersion FROM Fabricas WHERE FabricaId=@id";
+                        comando = new SqlCommand(cadenaComando, cn);
+                        comando.Parameters.AddWithValue("@id", fabrica.FabricaId);
+                        fabrica.RowVersion = (byte[])comando.ExecuteScalar();
+                    }
+                }
+
+                return registrosAfectados;
+            }
+            catch (Exception e)
+            {
+                if (e.Message.Contains("IX_"))
+                {
+                    throw new Exception("Fabrica repetida");
+                }
+                throw new Exception(e.Message);
+            }
+        }
+
         public void Agregar(Fabrica fabrica)
         {
             

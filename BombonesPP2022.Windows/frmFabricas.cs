@@ -109,6 +109,51 @@ namespace BombonesPP2022.Windows
             }
 
         }
+
+        private void EditarIconButton_Click(object sender, EventArgs e)
+        {
+            if (DatosDataGridView.SelectedRows.Count == 0)
+            {
+                return;
+            }
+            int registrosAfectados = 0;
+            var r = DatosDataGridView.SelectedRows[0];
+            Fabrica fabrica = (Fabrica)r.Tag;
+            Fabrica fabricaAuX = (Fabrica)fabrica.Clone();
+
+            try
+            {
+
+                frmFabricasAE frm = new frmFabricasAE() { Text = "Editar Fabrica" };
+                frm.SetFabrica(fabrica);
+                DialogResult dr = frm.ShowDialog(this);
+                if (dr == DialogResult.Cancel)
+                {
+                    return;
+                }
+
+                fabrica = frm.GetFabrica();
+                registrosAfectados = servicio.Editar(fabrica);
+                if (registrosAfectados == 0)
+                {
+
+                    HelperMensaje.Mensaje(TipoMensaje.Warning, "Fabrica editada", "Mensaje");
+
+                }
+                else
+                {
+                    HelperGrilla.SetearFila(r, fabrica);
+                    HelperMensaje.Mensaje(TipoMensaje.OK, "Fabrica editada", "Mensaje");
+
+                }
+            }
+            catch (Exception exception)
+            {
+                HelperGrilla.SetearFila(r, fabricaAuX);
+                HelperMensaje.Mensaje(TipoMensaje.Error, exception.Message, "Error");
+            }
+
+        }
     }
 }
 

@@ -30,6 +30,8 @@ namespace BombonesPP2022.Windows
             if (fabrica != null)
             {
                 FabricaTextBox.Text = fabrica.NombreFabrica;
+                DireccionTextBox.Text = fabrica.Direccion;
+                GerenteTextBox.Text = fabrica.GerenteVentas;
                 PaisesComboBox.SelectedValue = fabrica.PaisId;
             }
         }
@@ -94,6 +96,11 @@ namespace BombonesPP2022.Windows
         private void frmFabricasAE_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public void SetFabrica(Fabrica fabrica)
+        {
+            this.fabrica = fabrica;
         }
     }
 }
